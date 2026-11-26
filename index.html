@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digitizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <main class="stage">
+    <header class="brand">
+      <p class="brand-mark">Digitizer</p>
+      <h1>Capture the paper. Keep the schema.</h1>
+      <p class="lede">Point a camera or drop a scan. Talks to the document-labeler API in a separate service.</p>
+    </header>
+
+    <section class="capture" aria-label="Document capture">
+      <div class="viewport">
+        <video id="preview" playsinline autoplay muted></video>
+        <canvas id="snap" hidden></canvas>
+        <img id="still" alt="" hidden />
+        <p id="cam-fallback" class="fallback">Camera opens here — or choose a file below.</p>
+      </div>
+
+      <div class="controls">
+        <label class="field">
+          <span>API base</span>
+          <input id="api" type="url" placeholder="http://127.0.0.1:8091" autocomplete="url" />
+        </label>
+        <label class="field">
+          <span>Department</span>
+          <input id="dept" type="text" value="stores" autocomplete="organization" required />
+        </label>
+        <label class="field">
+          <span>Mode override</span>
+          <select id="mode">
+            <option value="">auto</option>
+            <option value="fully_learned">fully_learned</option>
+            <option value="seeded_extensible">seeded_extensible</option>
+            <option value="known_dynamic">known_dynamic</option>
+          </select>
+        </label>
+        <div class="actions">
+          <button type="button" id="btn-cam" class="btn ghost">Enable camera</button>
+          <button type="button" id="btn-shot" class="btn primary" disabled>Capture</button>
+          <label class="btn ghost file-btn">
+            Upload file
+            <input id="file" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
+          </label>
+          <button type="button" id="btn-scan" class="btn primary" disabled>Scan</button>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </div>
+    </section>
+
+    <section id="results" class="results" hidden aria-live="polite">
+      <h2>Results</h2>
+      <pre id="out"></pre>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
